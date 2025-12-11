@@ -52,174 +52,126 @@ a:hover {
 <script type="text/javascript">
 window.onload = function() {
 
-var namMember = [
-  '<img src="tiktok/tiktok01.jpeg">',
-  '<img src="tiktok/tiktok02.jpeg">',
-  '<img src="tiktok/tiktok03.jpeg">',
-  '<img src="tiktok/tiktok04.jpeg">',
-  '<img src="tiktok/tiktok05.jpeg">',
-  '<img src="tiktok/tiktok06.jpeg">',
-  '<img src="tiktok/tiktok07.jpeg">',
-  '<img src="tiktok/tiktok08.jpeg">',
-  '<img src="tiktok/tiktok09.jpeg">',
-  '<img src="tiktok/tiktok10.jpeg">',
-  '<img src="tiktok/tiktok11.jpeg">',
-  '<img src="tiktok/tiktok12.jpeg">',
-  '<img src="tiktok/tiktok13.jpeg">'
-];
+    // Just the filenames
+    var namMember = [
+        "tiktok/tiktok01.jpeg",
+        "tiktok/tiktok02.jpeg",
+        "tiktok/tiktok03.jpeg",
+        "tiktok/tiktok04.jpeg",
+        "tiktok/tiktok05.jpeg",
+        "tiktok/tiktok06.jpeg",
+        "tiktok/tiktok07.jpeg",
+        "tiktok/tiktok08.jpeg",
+        "tiktok/tiktok09.jpeg",
+        "tiktok/tiktok10.jpeg",
+        "tiktok/tiktok11.jpeg",
+        "tiktok/tiktok12.jpeg",
+        "tiktok/tiktok13.jpeg"
+    ];
 
-var lstMember = [];
-var parent = [];
-var equal = [];
-var rec = [];
-var cmp1, cmp2;
-var head1, head2;
-var nrec;
-var numQuestion;
-var totalSize;
-var finishSize;
-var finishFlag;
+    var lstMember = [namMember.map((_, i) => i)]; // start with indices
+    var rec = [];
+    var equal = [];
+    var cmp1, cmp2;
+    var head1, head2;
+    var nrec;
+    var numQuestion;
+    var totalSize;
+    var finishSize;
+    var finishFlag;
 
-function initList() {
-    var n = 0;
-    lstMember[n] = [];
+    function initList() {
+        // Build merge-sort style tree
+        var n = 0;
+        var parent = [-1];
+        totalSize = 0;
 
-    for (var i = 0; i < namMember.length; i++) {
-        lstMember[n].push(i);
-    }
-    parent[n] = -1;
-    totalSize = 0;
-    n++;
-
-    for (var i = 0; i < lstMember.length; i++) {
-        if (lstMember[i].length >= 2) {
-            var mid = Math.ceil(lstMember[i].length / 2);
-            lstMember[n] = lstMember[i].slice(0, mid);
-            totalSize += lstMember[n].length;
-            parent[n] = i;
-            n++;
-
-            lstMember[n] = lstMember[i].slice(mid);
-            totalSize += lstMember[n].length;
-            parent[n] = i;
+        while (n < lstMember.length) {
+            if (lstMember[n].length >= 2) {
+                var mid = Math.ceil(lstMember[n].length / 2);
+                lstMember.push(lstMember[n].slice(0, mid));
+                lstMember.push(lstMember[n].slice(mid));
+                totalSize += lstMember[n].length;
+            }
             n++;
         }
-    }
 
-    for (var i = 0; i < namMember.length; i++) rec[i] = 0;
-    nrec = 0;
+        rec = [];
+        nrec = 0;
+        equal = Array(namMember.length).fill(-1);
 
-    for (var i = 0; i <= namMember.length; i++) equal[i] = -1;
-
-    cmp1 = lstMember.length - 2;
-    cmp2 = lstMember.length - 1;
-    head1 = 0;
-    head2 = 0;
-    numQuestion = 1;
-    finishSize = 0;
-    finishFlag = 0;
-}
-
-function sortList(flag) {
-    if (flag < 0) {
-        rec[nrec] = lstMember[cmp1][head1++];
-        nrec++;
-        finishSize++;
-        while (equal[rec[nrec - 1]] != -1) {
-            rec[nrec] = lstMember[cmp1][head1++];
-            nrec++;
-            finishSize++;
-        }
-    } else if (flag > 0) {
-        rec[nrec] = lstMember[cmp2][head2++];
-        nrec++;
-        finishSize++;
-        while (equal[rec[nrec - 1]] != -1) {
-            rec[nrec] = lstMember[cmp2][head2++];
-            nrec++;
-            finishSize++;
-        }
-    } else {
-        rec[nrec] = lstMember[cmp1][head1++];
-        nrec++;
-        finishSize++;
-        while (equal[rec[nrec - 1]] != -1) {
-            rec[nrec] = lstMember[cmp1][head1++];
-            nrec++;
-            finishSize++;
-        }
-
-        equal[rec[nrec - 1]] = lstMember[cmp2][head2];
-        rec[nrec] = lstMember[cmp2][head2++];
-        nrec++;
-        finishSize++;
-        while (equal[rec[nrec - 1]] != -1) {
-            rec[nrec] = lstMember[cmp2][head2++];
-            nrec++;
-            finishSize++;
-        }
-    }
-
-    if (head1 == lstMember[cmp1].length && head2 == lstMember[cmp2].length) {
-        for (var i = 0; i < rec.length; i++) {
-            lstMember[parent[cmp1]][i] = rec[i];
-        }
-        lstMember.pop();
-        lstMember.pop();
-        cmp1 -= 2;
-        cmp2 -= 2;
+        cmp1 = lstMember.length - 2;
+        cmp2 = lstMember.length - 1;
         head1 = 0;
         head2 = 0;
-
-        for (var i = 0; i < namMember.length; i++) rec[i] = 0;
-        nrec = 0;
+        numQuestion = 1;
+        finishSize = 0;
+        finishFlag = 0;
     }
 
-    if (cmp1 < 0) {
+    function sortList(flag) {
+        var currentList1 = lstMember[cmp1];
+        var currentList2 = lstMember[cmp2];
+
+        if (flag <= 0) { // choose left or tie
+            rec.push(currentList1[head1++]);
+            finishSize++;
+        }
+        if (flag >= 0) { // choose right or tie
+            rec.push(currentList2[head2++]);
+            finishSize++;
+        }
+
+        if (head1 == currentList1.length && head2 == currentList2.length) {
+            lstMember[Math.floor(cmp1/2)] = rec.slice();
+            lstMember.pop();
+            lstMember.pop();
+            cmp1 -= 2;
+            cmp2 -= 2;
+            head1 = 0;
+            head2 = 0;
+            rec = [];
+        }
+
+        if (cmp1 < 0) {
+            showResult();
+            finishFlag = 1;
+        } else {
+            showImage();
+        }
+    }
+
+    function showImage() {
         document.getElementById("battleNumber").innerHTML =
-            "battle #" + (numQuestion - 1) + "<br>" +
-            Math.floor(finishSize * 100 / totalSize) + "% sorted.";
-        showResult();
-        finishFlag = 1;
-    } else {
-        showImage();
-    }
-}
+            "battle #" + numQuestion + "<br>" + Math.floor(finishSize * 100 / totalSize) + "% sorted.";
 
-function showResult() {
-    var ranking = 1;
-    var str = "";
+        var leftIndex = lstMember[cmp1][head1];
+        var rightIndex = lstMember[cmp2][head2];
 
-    str += '<table style="width:200px; font-size:18px; margin:auto; border:1px solid #000; border-collapse:collapse">';
-    str += '<tr><td style="background:#e097d9; color:white;">rank</td><td style="background:#e097d9; color:white;">image</td></tr>';
+        document.getElementById("leftField").innerHTML = '<img src="' + namMember[leftIndex] + '">';
+        document.getElementById("rightField").innerHTML = '<img src="' + namMember[rightIndex] + '">';
 
-    for (var i = 0; i < namMember.length; i++) {
-        str += '<tr><td style="border:1px solid #000;">' + ranking +
-               '</td><td style="border:1px solid #000;">' + namMember[lstMember[0][i]] +
-               '</td></tr>';
-        ranking++;
+        numQuestion++;
     }
 
-    str += "</table>";
-    document.getElementById("resultField").innerHTML = str;
-}
+    function showResult() {
+        var str = '<table style="width:200px; font-size:18px; margin:auto; border:1px solid #000; border-collapse:collapse">';
+        str += '<tr><td style="background:#e097d9; color:white;">rank</td><td style="background:#e097d9; color:white;">image</td></tr>';
+        for (var i = 0; i < namMember.length; i++) {
+            str += '<tr><td style="border:1px solid #000;">' + (i+1) + '</td>';
+            str += '<td style="border:1px solid #000;"><img src="' + namMember[lstMember[0][i]] + '"></td></tr>';
+        }
+        str += '</table>';
+        document.getElementById("resultField").innerHTML = str;
+    }
 
-function showImage() {
-    document.getElementById("battleNumber").innerHTML =
-        "battle #" + numQuestion + "<br>" + Math.floor(finishSize * 100 / totalSize) + "% sorted.";
+    initList();
+    showImage();
 
-    document.getElementById("leftField").innerHTML = namMember[lstMember[cmp1][head1]];
-    document.getElementById("rightField").innerHTML = namMember[lstMember[cmp2][head2]];
-
-    numQuestion++;
-}
-
-// Initialize after page loads
-initList();
-showImage();
-
-}; // end window.onload
+    window.sortList = sortList; // make clickable functions accessible
+};
 </script>
+
 </head>
 
 <body>
