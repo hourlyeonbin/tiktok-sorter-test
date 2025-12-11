@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Image Test</title>
+</head>
+<body>
+  <h2>Image Load Test</h2>
+  <div id="testArea"></div>
+
+  <script>
+    const images = [
+      "tiktok/tiktok01.jpeg",
+      "tiktok/tiktok02.jpeg",
+      "tiktok/tiktok03.jpeg",
+      "tiktok/tiktok04.jpeg",
+      "tiktok/tiktok05.jpeg",
+      "tiktok/tiktok06.jpeg",
+      "tiktok/tiktok07.jpeg",
+      "tiktok/tiktok08.jpeg",
+      "tiktok/tiktok09.jpeg",
+      "tiktok/tiktok10.jpeg",
+      "tiktok/tiktok11.jpeg",
+      "tiktok/tiktok12.jpeg",
+      "tiktok/tiktok13.jpeg"
+    ];
+
+    const testArea = document.getElementById("testArea");
+
+    images.forEach((src, i) => {
+      const img = document.createElement("img");
+      img.src = src;
+      img.alt = "Image " + (i + 1);
+      img.style.width = "100px";
+      img.style.margin = "5px";
+      img.onerror = () => console.log("Failed to load: " + src);
+      testArea.appendChild(img);
+    });
+  </script>
+</body>
+</html>
