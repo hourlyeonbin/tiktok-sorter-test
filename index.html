@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 <meta charset="utf-8">
-<title>Image Sorter</title>
-
-<style type="text/css">
-#mainTable {
+<title>TikTok Image Sorter</title>
+<style>
+#mainTable{
     font-size: 19px;
     font-family: 'Times New Roman', serif;
     text-align: center;
@@ -20,14 +18,8 @@
 #leftField, #rightField {
     width: 150px;
     height: 150px;
-    text-align: center;
-    vertical-align: middle;
     border: 1px solid #000;
     cursor: pointer;
-}
-#leftField img, #rightField img {
-    max-width: 100%;
-    max-height: 100%;
 }
 .middleField {
     width: 120px;
@@ -48,136 +40,146 @@ a:hover {
     color: #8f8f8f;
 }
 </style>
+<script>
+var namMember = [
+"tiktok01.jpeg",
+"tiktok02.jpeg",
+"tiktok03.jpeg",
+"tiktok04.jpeg",
+"tiktok05.jpeg",
+"tiktok06.jpeg",
+"tiktok07.jpeg",
+"tiktok08.jpeg",
+"tiktok09.jpeg",
+"tiktok10.jpeg",
+"tiktok11.jpeg",
+"tiktok12.jpeg",
+"tiktok13.jpeg"
+];
 
-<script type="text/javascript">
-window.onload = function() {
+var lstMember = [];
+var parent = [];
+var equal = [];
+var rec = [];
+var cmp1, cmp2;
+var head1, head2;
+var nrec;
+var numQuestion;
+var totalSize;
+var finishSize;
+var finishFlag;
 
-    // Just the filenames
-    var namMember = [
-        "tiktok/tiktok01.jpeg",
-        "tiktok/tiktok02.jpeg",
-        "tiktok/tiktok03.jpeg",
-        "tiktok/tiktok04.jpeg",
-        "tiktok/tiktok05.jpeg",
-        "tiktok/tiktok06.jpeg",
-        "tiktok/tiktok07.jpeg",
-        "tiktok/tiktok08.jpeg",
-        "tiktok/tiktok09.jpeg",
-        "tiktok/tiktok10.jpeg",
-        "tiktok/tiktok11.jpeg",
-        "tiktok/tiktok12.jpeg",
-        "tiktok/tiktok13.jpeg"
-    ];
-
-    var lstMember = [namMember.map((_, i) => i)]; // start with indices
-    var rec = [];
-    var equal = [];
-    var cmp1, cmp2;
-    var head1, head2;
-    var nrec;
-    var numQuestion;
-    var totalSize;
-    var finishSize;
-    var finishFlag;
-
-    function initList() {
-        // Build merge-sort style tree
-        var n = 0;
-        var parent = [-1];
-        totalSize = 0;
-
-        while (n < lstMember.length) {
-            if (lstMember[n].length >= 2) {
-                var mid = Math.ceil(lstMember[n].length / 2);
-                lstMember.push(lstMember[n].slice(0, mid));
-                lstMember.push(lstMember[n].slice(mid));
-                totalSize += lstMember[n].length;
-            }
+function initList(){
+    var n=0;
+    var mid;
+    lstMember[n] = [];
+    for(var i=0;i<namMember.length;i++) lstMember[n][i]=i;
+    parent[n]=-1;
+    totalSize=0;
+    n++;
+    for(var i=0;i<lstMember.length;i++){
+        if(lstMember[i].length>=2){
+            mid = Math.ceil(lstMember[i].length/2);
+            lstMember[n] = lstMember[i].slice(0,mid);
+            totalSize += lstMember[n].length;
+            parent[n] = i;
+            n++;
+            lstMember[n] = lstMember[i].slice(mid);
+            totalSize += lstMember[n].length;
+            parent[n] = i;
             n++;
         }
+    }
+    for(var i=0;i<namMember.length;i++) rec[i]=0;
+    nrec=0;
+    for(var i=0;i<=namMember.length;i++) equal[i]=-1;
+    cmp1 = lstMember.length-2;
+    cmp2 = lstMember.length-1;
+    head1 = 0;
+    head2 = 0;
+    numQuestion = 1;
+    finishSize = 0;
+    finishFlag = 0;
+}
 
-        rec = [];
-        nrec = 0;
-        equal = Array(namMember.length).fill(-1);
-
-        cmp1 = lstMember.length - 2;
-        cmp2 = lstMember.length - 1;
-        head1 = 0;
-        head2 = 0;
-        numQuestion = 1;
-        finishSize = 0;
-        finishFlag = 0;
+function sortList(flag){
+    var i;
+    if(flag<0){
+        rec[nrec]=lstMember[cmp1][head1++];
+        nrec++; finishSize++;
+        while(equal[rec[nrec-1]]!=-1){
+            rec[nrec]=lstMember[cmp1][head1++];
+            nrec++; finishSize++;
+        }
+    } else if(flag>0){
+        rec[nrec]=lstMember[cmp2][head2++];
+        nrec++; finishSize++;
+        while(equal[rec[nrec-1]]!=-1){
+            rec[nrec]=lstMember[cmp2][head2++];
+            nrec++; finishSize++;
+        }
+    } else {
+        rec[nrec]=lstMember[cmp1][head1++];
+        nrec++; finishSize++;
+        while(equal[rec[nrec-1]]!=-1){
+            rec[nrec]=lstMember[cmp1][head1++];
+            nrec++; finishSize++;
+        }
+        equal[rec[nrec-1]]=lstMember[cmp2][head2];
+        rec[nrec]=lstMember[cmp2][head2++];
+        nrec++; finishSize++;
+        while(equal[rec[nrec-1]]!=-1){
+            rec[nrec]=lstMember[cmp2][head2++];
+            nrec++; finishSize++;
+        }
     }
 
-    function sortList(flag) {
-        var currentList1 = lstMember[cmp1];
-        var currentList2 = lstMember[cmp2];
-
-        if (flag <= 0) { // choose left or tie
-            rec.push(currentList1[head1++]);
-            finishSize++;
-        }
-        if (flag >= 0) { // choose right or tie
-            rec.push(currentList2[head2++]);
-            finishSize++;
-        }
-
-        if (head1 == currentList1.length && head2 == currentList2.length) {
-            lstMember[Math.floor(cmp1/2)] = rec.slice();
-            lstMember.pop();
-            lstMember.pop();
-            cmp1 -= 2;
-            cmp2 -= 2;
-            head1 = 0;
-            head2 = 0;
-            rec = [];
-        }
-
-        if (cmp1 < 0) {
-            showResult();
-            finishFlag = 1;
-        } else {
-            showImage();
-        }
+    if(head1==lstMember[cmp1].length && head2==lstMember[cmp2].length){
+        for(i=0;i<rec.length;i++) lstMember[parent[cmp1]][i]=rec[i];
+        lstMember.pop();
+        lstMember.pop();
+        cmp1-=2; cmp2-=2;
+        head1=head2=0;
+        for(i=0;i<namMember.length;i++) rec[i]=0;
+        nrec=0;
     }
 
-    function showImage() {
-        document.getElementById("battleNumber").innerHTML =
-            "battle #" + numQuestion + "<br>" + Math.floor(finishSize * 100 / totalSize) + "% sorted.";
+    if(cmp1<0){
+        document.getElementById("battleNumber").innerHTML="battle #"+(numQuestion-1)+"<br>"+Math.floor(finishSize*100/totalSize)+"% sorted.";
+        showResult();
+        finishFlag=1;
+    } else showImage();
+}
 
-        var leftIndex = lstMember[cmp1][head1];
-        var rightIndex = lstMember[cmp2][head2];
-
-        document.getElementById("leftField").innerHTML = '<img src="' + namMember[leftIndex] + '">';
-        document.getElementById("rightField").innerHTML = '<img src="' + namMember[rightIndex] + '">';
-
-        numQuestion++;
-    }
-
-    function showResult() {
-        var str = '<table style="width:200px; font-size:18px; margin:auto; border:1px solid #000; border-collapse:collapse">';
-        str += '<tr><td style="background:#e097d9; color:white;">rank</td><td style="background:#e097d9; color:white;">image</td></tr>';
-        for (var i = 0; i < namMember.length; i++) {
-            str += '<tr><td style="border:1px solid #000;">' + (i+1) + '</td>';
-            str += '<td style="border:1px solid #000;"><img src="' + namMember[lstMember[0][i]] + '"></td></tr>';
+function showResult(){
+    var ranking=1, sameRank=1, str="";
+    str += "<table style='width:200px; font-size:18px; margin:auto; border:1px solid #000; border-collapse:collapse'>";
+    str += "<tr><td style='background:#e097d9; color:white;'>rank</td><td style='background:#e097d9; color:white;'>image</td></tr>";
+    for(var i=0;i<namMember.length;i++){
+        str += "<tr><td style='border:1px solid #000; text-align:center;'>"+ranking+"</td><td style='border:1px solid #000; text-align:center;'><img src='tiktok/"+namMember[lstMember[0][i]]+"' style='max-width:100%; max-height:100%;'></td></tr>";
+        if(i<namMember.length-1){
+            if(equal[lstMember[0][i]]==lstMember[0][i+1]) sameRank++;
+            else {ranking+=sameRank; sameRank=1;}
         }
-        str += '</table>';
-        document.getElementById("resultField").innerHTML = str;
     }
+    str += "</table>";
+    document.getElementById("resultField").innerHTML=str;
+}
 
-    initList();
-    showImage();
+function showImage(){
+    document.getElementById("battleNumber").innerHTML="battle #"+numQuestion+"<br>"+Math.floor(finishSize*100/totalSize)+"% sorted.";
+    document.getElementById("leftField").innerHTML="<img src='tiktok/"+namMember[lstMember[cmp1][head1]]+"' style='max-width:100%; max-height:100%;'>";
+    document.getElementById("rightField").innerHTML="<img src='tiktok/"+namMember[lstMember[cmp2][head2]]+"' style='max-width:100%; max-height:100%;'>";
+    numQuestion++;
+}
 
-    window.sortList = sortList; // make clickable functions accessible
-};
+initList();
+showImage();
 </script>
-
 </head>
-
 <body>
-
 <center><br><br>
-<b>SORTER NAME</b><br><br>
+<b>TikTok Sorter</b><br><br>
 Pick the image you like better in each battle.<br>
 </center>
 
@@ -197,6 +199,5 @@ Pick the image you like better in each battle.<br>
 
 <br><br>
 <div id="resultField" style="text-align:center;"></div>
-
 </body>
 </html>
