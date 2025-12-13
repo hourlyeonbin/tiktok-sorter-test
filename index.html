@@ -122,17 +122,186 @@ function sortList(flag) {
     }
 
     if (head1 >= lstMember[cmp1].length && head2 >= lstMember[cmp2].length) {
-        for (var i = 0; i < nrec; i++) lstMember[parent[cmp1]][i] = rec[i];
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>Image Sorter</title>
+
+<style type="text/css">
+#mainTable {
+    font-size: 19px;
+    font-family: 'Times New Roman', serif;
+    text-align: center;
+    vertical-align: middle;
+    width: 410px;
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: separate;
+    border-spacing: 10px 5px;
+}
+#leftField, #rightField {
+    width: 150px;
+    height: 150px;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid #000;
+    cursor: pointer;
+}
+#leftField img, #rightField img {
+    max-width: 100%;
+    max-height: 100%;
+}
+.middleField {
+    width: 120px;
+    height: 70px;
+    border: 1px solid #000;
+    cursor: pointer;
+}
+body {
+    width: 600px;
+    margin: 0 auto;
+    font-family: 'Times New Roman', serif;
+}
+a {
+    color: #e097d9;
+    text-decoration: none;
+}
+a:hover {
+    color: #8f8f8f;
+}
+</style>
+
+<script type="text/javascript">
+
+var namMember = [
+  '<img src="tiktok/tiktok01.jpeg">',
+  '<img src="tiktok/tiktok02.jpeg">',
+  '<img src="tiktok/tiktok03.jpeg">',
+  '<img src="tiktok/tiktok04.jpeg">',
+  '<img src="tiktok/tiktok05.jpeg">',
+  '<img src="tiktok/tiktok06.jpeg">',
+  '<img src="tiktok/tiktok07.jpeg">',
+  '<img src="tiktok/tiktok08.jpeg">',
+  '<img src="tiktok/tiktok09.jpeg">',
+  '<img src="tiktok/tiktok10.jpeg">',
+  '<img src="tiktok/tiktok11.jpeg">',
+  '<img src="tiktok/tiktok12.jpeg">',
+  '<img src="tiktok/tiktok13.jpeg">'
+];
+
+var lstMember = [];
+var parent = [];
+var equal = [];
+var rec = [];
+var cmp1, cmp2;
+var head1, head2;
+var nrec;
+var numQuestion;
+var totalSize;
+var finishSize;
+var finishFlag;
+
+function initList() {
+    var n = 0;
+    lstMember[n] = [];
+
+    for (var i = 0; i < namMember.length; i++) {
+        lstMember[n].push(i);
+    }
+    parent[n] = -1;
+    totalSize = 0;
+    n++;
+
+    for (var i = 0; i < lstMember.length; i++) {
+        if (lstMember[i].length >= 2) {
+            var mid = Math.ceil(lstMember[i].length / 2);
+            lstMember[n] = lstMember[i].slice(0, mid);
+            totalSize += lstMember[n].length;
+            parent[n] = i;
+            n++;
+
+            lstMember[n] = lstMember[i].slice(mid);
+            totalSize += lstMember[n].length;
+            parent[n] = i;
+            n++;
+        }
+    }
+
+    for (var i = 0; i < namMember.length; i++) rec[i] = 0;
+    nrec = 0;
+
+    for (var i = 0; i <= namMember.length; i++) equal[i] = -1;
+
+    cmp1 = lstMember.length - 2;
+    cmp2 = lstMember.length - 1;
+    head1 = 0;
+    head2 = 0;
+    numQuestion = 1;
+    finishSize = 0;
+    finishFlag = 0;
+}
+
+function sortList(flag) {
+    if (flag < 0) {
+        rec[nrec] = lstMember[cmp1][head1++];
+        nrec++;
+        finishSize++;
+        while (equal[rec[nrec - 1]] != -1) {
+            rec[nrec] = lstMember[cmp1][head1++];
+            nrec++;
+            finishSize++;
+        }
+    } else if (flag > 0) {
+        rec[nrec] = lstMember[cmp2][head2++];
+        nrec++;
+        finishSize++;
+        while (equal[rec[nrec - 1]] != -1) {
+            rec[nrec] = lstMember[cmp2][head2++];
+            nrec++;
+            finishSize++;
+        }
+    } else {
+        rec[nrec] = lstMember[cmp1][head1++];
+        nrec++;
+        finishSize++;
+        while (equal[rec[nrec - 1]] != -1) {
+            rec[nrec] = lstMember[cmp1][head1++];
+            nrec++;
+            finishSize++;
+        }
+
+        equal[rec[nrec - 1]] = lstMember[cmp2][head2];
+        rec[nrec] = lstMember[cmp2][head2++];
+        nrec++;
+        finishSize++;
+        while (equal[rec[nrec - 1]] != -1) {
+            rec[nrec] = lstMember[cmp2][head2++];
+            nrec++;
+            finishSize++;
+        }
+    }
+
+    if (head1 == lstMember[cmp1].length && head2 == lstMember[cmp2].length) {
+        for (var i = 0; i < rec.length; i++) {
+            lstMember[parent[cmp1]][i] = rec[i];
+        }
         lstMember.pop();
         lstMember.pop();
         cmp1 -= 2;
         cmp2 -= 2;
-        head1 = head2 = 0;
+        head1 = 0;
+        head2 = 0;
+
+        for (var i = 0; i < namMember.length; i++) rec[i] = 0;
         nrec = 0;
     }
 
     if (cmp1 < 0) {
-        document.getElementById("battleNumber").innerHTML = "battle #" + (numQuestion - 1) + "<br>" + Math.floor(finishSize * 100 / totalSize) + "% sorted.";
+        document.getElementById("battleNumber").innerHTML =
+            "battle #" + (numQuestion - 1) + "<br>" +
+            Math.floor(finishSize * 100 / totalSize) + "% sorted.";
         showResult();
         finishFlag = 1;
     } else {
@@ -141,39 +310,43 @@ function sortList(flag) {
 }
 
 function showResult() {
-    var ranking = 1, sameRank = 1, str = "";
-    str += "<table style='width:200px; font-size:18px; margin:auto; border:1px solid #000; border-collapse:collapse'>";
-    str += "<tr><td style='background:#e097d9; color:white;'>rank</td><td style='background:#e097d9; color:white;'>image</td></tr>";
+    var ranking = 1;
+    var str = "";
+
+    str += '<table style="width:200px; font-size:18px; margin:auto; border:1px solid #000; border-collapse:collapse">';
+    str += '<tr><td style="background:#e097d9; color:white;">rank</td><td style="background:#e097d9; color:white;">image</td></tr>';
+
     for (var i = 0; i < namMember.length; i++) {
-        str += "<tr><td style='border:1px solid #000; text-align:center;'>" + ranking + "</td><td style='border:1px solid #000; text-align:center;'><img src='tiktok/" + namMember[lstMember[0][i]] + "' style='max-width:100%; max-height:100%;'></td></tr>";
-        if (i < namMember.length - 1) {
-            if (equal[lstMember[0][i]] == lstMember[0][i + 1]) sameRank++;
-            else { ranking += sameRank; sameRank = 1; }
-        }
+        str += '<tr><td style="border:1px solid #000;">' + ranking +
+               '</td><td style="border:1px solid #000;">' + namMember[lstMember[0][i]] +
+               '</td></tr>';
+        ranking++;
     }
+
     str += "</table>";
     document.getElementById("resultField").innerHTML = str;
 }
 
 function showImage() {
-    if (head1 >= lstMember[cmp1].length || head2 >= lstMember[cmp2].length) {
-        sortList(0);
-        return;
-    }
+    document.getElementById("battleNumber").innerHTML =
+        "battle #" + numQuestion + "<br>" + Math.floor(finishSize * 100 / totalSize) + "% sorted.";
 
-    document.getElementById("battleNumber").innerHTML = "battle #" + numQuestion + "<br>" + Math.floor(finishSize * 100 / totalSize) + "% sorted.";
-    document.getElementById("leftField").innerHTML = "<img src='tiktok/" + namMember[lstMember[cmp1][head1]] + "' style='max-width:100%; max-height:100%;'>";
-    document.getElementById("rightField").innerHTML = "<img src='tiktok/" + namMember[lstMember[cmp2][head2]] + "' style='max-width:100%; max-height:100%;'>";
+    document.getElementById("leftField").innerHTML = namMember[lstMember[cmp1][head1]];
+    document.getElementById("rightField").innerHTML = namMember[lstMember[cmp2][head2]];
+
     numQuestion++;
 }
 
 initList();
 showImage();
+
 </script>
 </head>
+
 <body>
+
 <center><br><br>
-<b>TikTok Sorter</b><br><br>
+<b>SORTER NAME</b><br><br>
 Pick the image you like better in each battle.<br>
 </center>
 
@@ -193,5 +366,6 @@ Pick the image you like better in each battle.<br>
 
 <br><br>
 <div id="resultField" style="text-align:center;"></div>
+
 </body>
 </html>
