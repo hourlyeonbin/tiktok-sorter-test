@@ -2,150 +2,20 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>TikTok Image Sorter</title>
+<title>Image Sorter</title>
+
 <style>
 #mainTable {
     font-size: 19px;
     font-family: 'Times New Roman', serif;
     text-align: center;
-    vertical-align: middle;
     width: 410px;
-    margin-left: auto;
-    margin-right: auto;
-    border-collapse: separate;
+    margin: auto;
     border-spacing: 10px 5px;
 }
 #leftField, #rightField {
     width: 150px;
     height: 150px;
-    border: 1px solid #000;
-    cursor: pointer;
-}
-.middleField {
-    width: 120px;
-    height: 70px;
-    border: 1px solid #000;
-    cursor: pointer;
-}
-body {
-    width: 600px;
-    margin: 0 auto;
-    font-family: 'Times New Roman', serif;
-}
-a {
-    color: #e097d9;
-    text-decoration: none;
-}
-a:hover {
-    color: #8f8f8f;
-}
-</style>
-<script>
-var namMember = [
-"tiktok01.jpeg",
-"tiktok02.jpeg",
-"tiktok03.jpeg",
-"tiktok04.jpeg",
-"tiktok05.jpeg",
-"tiktok06.jpeg",
-"tiktok07.jpeg",
-"tiktok08.jpeg",
-"tiktok09.jpeg",
-"tiktok10.jpeg",
-"tiktok11.jpeg",
-"tiktok12.jpeg",
-"tiktok13.jpeg"
-];
-
-var lstMember = [], parent = [], equal = [], rec = [];
-var cmp1, cmp2, head1, head2, nrec;
-var numQuestion, totalSize, finishSize, finishFlag;
-
-function initList() {
-    var n = 0;
-    lstMember[n] = [];
-    for (var i = 0; i < namMember.length; i++) lstMember[n][i] = i;
-    parent[n] = -1;
-    totalSize = 0;
-    n++;
-    for (var i = 0; i < lstMember.length; i++) {
-        if (lstMember[i].length >= 2) {
-            var mid = Math.ceil(lstMember[i].length / 2);
-            lstMember[n] = lstMember[i].slice(0, mid);
-            totalSize += lstMember[n].length;
-            parent[n++] = i;
-            lstMember[n] = lstMember[i].slice(mid);
-            totalSize += lstMember[n].length;
-            parent[n++] = i;
-        }
-    }
-    for (var i = 0; i < namMember.length; i++) rec[i] = 0;
-    nrec = 0;
-    for (var i = 0; i <= namMember.length; i++) equal[i] = -1;
-    cmp1 = lstMember.length - 2;
-    cmp2 = lstMember.length - 1;
-    head1 = head2 = 0;
-    numQuestion = 1;
-    finishSize = 0;
-    finishFlag = 0;
-}
-
-function sortList(flag) {
-    if (flag < 0) {
-        rec[nrec++] = lstMember[cmp1][head1++];
-        finishSize++;
-        while (equal[rec[nrec - 1]] != -1) {
-            rec[nrec++] = lstMember[cmp1][head1++];
-            finishSize++;
-        }
-    } else if (flag > 0) {
-        rec[nrec++] = lstMember[cmp2][head2++];
-        finishSize++;
-        while (equal[rec[nrec - 1]] != -1) {
-            rec[nrec++] = lstMember[cmp2][head2++];
-            finishSize++;
-        }
-    } else {
-        rec[nrec++] = lstMember[cmp1][head1++];
-        finishSize++;
-        while (equal[rec[nrec - 1]] != -1) {
-            rec[nrec++] = lstMember[cmp1][head1++];
-            finishSize++;
-        }
-        equal[rec[nrec - 1]] = lstMember[cmp2][head2];
-        rec[nrec++] = lstMember[cmp2][head2++];
-        finishSize++;
-        while (equal[rec[nrec - 1]] != -1) {
-            rec[nrec++] = lstMember[cmp2][head2++];
-            finishSize++;
-        }
-    }
-
-    if (head1 >= lstMember[cmp1].length && head2 >= lstMember[cmp2].length) {
-<!DOCTYPE html>
-<html>
-
-<head>
-<meta charset="utf-8">
-<title>Image Sorter</title>
-
-<style type="text/css">
-#mainTable {
-    font-size: 19px;
-    font-family: 'Times New Roman', serif;
-    text-align: center;
-    vertical-align: middle;
-    width: 410px;
-    margin-left: auto;
-    margin-right: auto;
-    border-collapse: separate;
-    border-spacing: 10px 5px;
-}
-#leftField, #rightField {
-    width: 150px;
-    height: 150px;
-    text-align: center;
-    vertical-align: middle;
     border: 1px solid #000;
     cursor: pointer;
 }
@@ -159,22 +29,9 @@ function sortList(flag) {
     border: 1px solid #000;
     cursor: pointer;
 }
-body {
-    width: 600px;
-    margin: 0 auto;
-    font-family: 'Times New Roman', serif;
-}
-a {
-    color: #e097d9;
-    text-decoration: none;
-}
-a:hover {
-    color: #8f8f8f;
-}
 </style>
 
-<script type="text/javascript">
-
+<script>
 var namMember = [
   '<img src="tiktok/tiktok01.jpeg">',
   '<img src="tiktok/tiktok02.jpeg">',
@@ -191,181 +48,130 @@ var namMember = [
   '<img src="tiktok/tiktok13.jpeg">'
 ];
 
-var lstMember = [];
-var parent = [];
-var equal = [];
-var rec = [];
-var cmp1, cmp2;
-var head1, head2;
-var nrec;
-var numQuestion;
-var totalSize;
-var finishSize;
-var finishFlag;
+var lstMember = [], parent = [], equal = [], rec = [];
+var cmp1, cmp2, head1, head2;
+var nrec, numQuestion, totalSize, finishSize, finishFlag;
 
 function initList() {
-    var n = 0;
-    lstMember[n] = [];
+    lstMember = [];
+    parent = [];
+    equal = [];
+    rec = [];
 
-    for (var i = 0; i < namMember.length; i++) {
-        lstMember[n].push(i);
-    }
-    parent[n] = -1;
+    lstMember[0] = [];
+    for (let i = 0; i < namMember.length; i++) lstMember[0][i] = i;
+    parent[0] = -1;
+
     totalSize = 0;
-    n++;
+    let n = 1;
 
-    for (var i = 0; i < lstMember.length; i++) {
+    for (let i = 0; i < lstMember.length; i++) {
         if (lstMember[i].length >= 2) {
-            var mid = Math.ceil(lstMember[i].length / 2);
+            let mid = Math.ceil(lstMember[i].length / 2);
             lstMember[n] = lstMember[i].slice(0, mid);
             totalSize += lstMember[n].length;
-            parent[n] = i;
-            n++;
+            parent[n++] = i;
 
             lstMember[n] = lstMember[i].slice(mid);
             totalSize += lstMember[n].length;
-            parent[n] = i;
-            n++;
+            parent[n++] = i;
         }
     }
 
-    for (var i = 0; i < namMember.length; i++) rec[i] = 0;
-    nrec = 0;
-
-    for (var i = 0; i <= namMember.length; i++) equal[i] = -1;
+    for (let i = 0; i < namMember.length; i++) equal[i] = -1;
 
     cmp1 = lstMember.length - 2;
     cmp2 = lstMember.length - 1;
-    head1 = 0;
-    head2 = 0;
-    numQuestion = 1;
+    head1 = head2 = 0;
+    nrec = 0;
     finishSize = 0;
-    finishFlag = 0;
+    numQuestion = 1;
+    finishFlag = false;
 }
 
 function sortList(flag) {
-    if (flag < 0) {
-        rec[nrec] = lstMember[cmp1][head1++];
-        nrec++;
-        finishSize++;
-        while (equal[rec[nrec - 1]] != -1) {
-            rec[nrec] = lstMember[cmp1][head1++];
-            nrec++;
-            finishSize++;
-        }
-    } else if (flag > 0) {
-        rec[nrec] = lstMember[cmp2][head2++];
-        nrec++;
-        finishSize++;
-        while (equal[rec[nrec - 1]] != -1) {
-            rec[nrec] = lstMember[cmp2][head2++];
-            nrec++;
-            finishSize++;
-        }
-    } else {
-        rec[nrec] = lstMember[cmp1][head1++];
-        nrec++;
-        finishSize++;
-        while (equal[rec[nrec - 1]] != -1) {
-            rec[nrec] = lstMember[cmp1][head1++];
-            nrec++;
-            finishSize++;
-        }
-
+    if (flag < 0) push(cmp1, head1++);
+    else if (flag > 0) push(cmp2, head2++);
+    else {
+        push(cmp1, head1++);
         equal[rec[nrec - 1]] = lstMember[cmp2][head2];
-        rec[nrec] = lstMember[cmp2][head2++];
-        nrec++;
-        finishSize++;
-        while (equal[rec[nrec - 1]] != -1) {
-            rec[nrec] = lstMember[cmp2][head2++];
-            nrec++;
-            finishSize++;
-        }
+        push(cmp2, head2++);
     }
 
-    if (head1 == lstMember[cmp1].length && head2 == lstMember[cmp2].length) {
-        for (var i = 0; i < rec.length; i++) {
+    while (head1 < lstMember[cmp1].length && head2 === lstMember[cmp2].length)
+        push(cmp1, head1++);
+    while (head2 < lstMember[cmp2].length && head1 === lstMember[cmp1].length)
+        push(cmp2, head2++);
+
+    if (head1 === lstMember[cmp1].length && head2 === lstMember[cmp2].length) {
+        for (let i = 0; i < rec.length; i++)
             lstMember[parent[cmp1]][i] = rec[i];
-        }
+
         lstMember.pop();
         lstMember.pop();
         cmp1 -= 2;
         cmp2 -= 2;
-        head1 = 0;
-        head2 = 0;
-
-        for (var i = 0; i < namMember.length; i++) rec[i] = 0;
+        head1 = head2 = 0;
+        rec = [];
         nrec = 0;
     }
 
     if (cmp1 < 0) {
         document.getElementById("battleNumber").innerHTML =
-            "battle #" + (numQuestion - 1) + "<br>" +
-            Math.floor(finishSize * 100 / totalSize) + "% sorted.";
+            "Finished! 100% sorted.";
         showResult();
-        finishFlag = 1;
-    } else {
-        showImage();
-    }
+        finishFlag = true;
+    } else showImage();
 }
 
-function showResult() {
-    var ranking = 1;
-    var str = "";
-
-    str += '<table style="width:200px; font-size:18px; margin:auto; border:1px solid #000; border-collapse:collapse">';
-    str += '<tr><td style="background:#e097d9; color:white;">rank</td><td style="background:#e097d9; color:white;">image</td></tr>';
-
-    for (var i = 0; i < namMember.length; i++) {
-        str += '<tr><td style="border:1px solid #000;">' + ranking +
-               '</td><td style="border:1px solid #000;">' + namMember[lstMember[0][i]] +
-               '</td></tr>';
-        ranking++;
-    }
-
-    str += "</table>";
-    document.getElementById("resultField").innerHTML = str;
+function push(cmp, head) {
+    rec[nrec++] = lstMember[cmp][head];
+    finishSize++;
 }
 
 function showImage() {
     document.getElementById("battleNumber").innerHTML =
-        "battle #" + numQuestion + "<br>" + Math.floor(finishSize * 100 / totalSize) + "% sorted.";
+        "battle #" + numQuestion++ + "<br>" +
+        Math.floor(finishSize * 100 / totalSize) + "% sorted.";
 
-    document.getElementById("leftField").innerHTML = namMember[lstMember[cmp1][head1]];
-    document.getElementById("rightField").innerHTML = namMember[lstMember[cmp2][head2]];
-
-    numQuestion++;
+    document.getElementById("leftField").innerHTML =
+        namMember[lstMember[cmp1][head1]];
+    document.getElementById("rightField").innerHTML =
+        namMember[lstMember[cmp2][head2]];
 }
 
-initList();
-showImage();
+function showResult() {
+    let str = "<h3>Results</h3>";
+    lstMember[0].forEach((i, idx) => {
+        str += `<p>${idx + 1}. ${namMember[i]}</p>`;
+    });
+    document.getElementById("resultField").innerHTML = str;
+}
 
+window.onload = () => {
+    initList();
+    showImage();
+};
 </script>
 </head>
 
 <body>
+<center><h2>SORTER NAME</h2></center>
 
-<center><br><br>
-<b>SORTER NAME</b><br><br>
-Pick the image you like better in each battle.<br>
-</center>
-
-<table id="mainTable" align="center">
+<table id="mainTable">
 <tr>
-<td id="battleNumber" colspan="3"><b>battle #1<br>0% sorted.</b></td>
+<td id="battleNumber" colspan="3"></td>
 </tr>
 <tr>
-<td id="leftField" onclick="if(!finishFlag) sortList(-1);" rowspan="2"></td>
-<td class="middleField" onclick="if(!finishFlag) sortList(0);">I like both</td>
-<td id="rightField" onclick="if(!finishFlag) sortList(1);" rowspan="2"></td>
+<td id="leftField" onclick="!finishFlag && sortList(-1)" rowspan="2"></td>
+<td class="middleField" onclick="!finishFlag && sortList(0)">I like both</td>
+<td id="rightField" onclick="!finishFlag && sortList(1)" rowspan="2"></td>
 </tr>
 <tr>
-<td class="middleField" onclick="if(!finishFlag) sortList(0);">no opinion</td>
+<td class="middleField" onclick="!finishFlag && sortList(0)">no opinion</td>
 </tr>
 </table>
 
-<br><br>
 <div id="resultField" style="text-align:center;"></div>
-
 </body>
 </html>
