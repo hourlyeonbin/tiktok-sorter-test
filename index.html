@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Image Sorter</title>
 
 <style>
@@ -28,6 +29,37 @@
     height: 70px;
     border: 1px solid #000;
     cursor: pointer;
+}
+
+@media (max-width: 600px) {
+
+  body {
+    width: 100%;
+    margin: 0;
+  }
+
+  #mainTable {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  #leftField, #rightField {
+    width: 45vw;
+    height: 45vw;
+  }
+
+  .middleField {
+    width: 90%;
+    height: auto;
+    padding: 10px 0;
+    font-size: 14px;
+  }
+
+  #leftField img,
+  #rightField img {
+    width: 100%;
+    height: auto;
+  }
 }
 </style>
 
@@ -175,3 +207,4 @@ window.onload = () => {
 <div id="resultField" style="text-align:center;"></div>
 </body>
 </html>
+
