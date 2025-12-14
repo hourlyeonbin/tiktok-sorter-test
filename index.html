@@ -35,35 +35,48 @@ body {
     max-width: 600px;
     margin: auto;
 }
-    
-@media (max-width: 600px) {
+
+/* MOBILE-FRIENDLY */
+@media (max-width: 768px) {
 
   body {
-    width: 100%;
-    margin: 0;
+    width: 95%;
+    margin: 0 auto;
   }
 
   #mainTable {
     width: 100%;
     font-size: 16px;
+    border-spacing: 6px 4px;
+    display: block;
+  }
+
+  #battleNumber {
+    font-size: 18px;
+    margin-bottom: 10px;
+    display: block;
   }
 
   #leftField, #rightField {
-    width: 45vw;
-    height: 45vw;
+    width: 90%;
+    height: auto;
+    display: block;
+    margin: 10px auto;
+  }
+
+  #leftField img, #rightField img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
   }
 
   .middleField {
     width: 90%;
-    height: auto;
+    height: 50px;
+    display: block;
+    margin: 8px auto;
+    font-size: 16px;
     padding: 10px 0;
-    font-size: 14px;
-  }
-
-  #leftField img,
-  #rightField img {
-    width: 100%;
-    height: auto;
   }
 }
 </style>
@@ -212,5 +225,6 @@ window.onload = () => {
 <div id="resultField" style="text-align:center;"></div>
 </body>
 </html>
+
 
 
