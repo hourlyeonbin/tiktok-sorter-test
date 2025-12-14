@@ -18,6 +18,7 @@
     height: 150px;
     border: 1px solid #000;
     cursor: pointer;
+    vertical-align: top;
 }
 #leftField img, #rightField img {
     max-width: 100%;
@@ -29,23 +30,28 @@
     border: 1px solid #000;
     cursor: pointer;
 }
+.nameText {
+    margin-top: 5px;
+    font-weight: bold;
+    display: block;
+}
 </style>
 
 <script>
 var namMember = [
-  '<img src="tiktok/tiktok01.jpeg">',
-  '<img src="tiktok/tiktok02.jpeg">',
-  '<img src="tiktok/tiktok03.jpeg">',
-  '<img src="tiktok/tiktok04.jpeg">',
-  '<img src="tiktok/tiktok05.jpeg">',
-  '<img src="tiktok/tiktok06.jpeg">',
-  '<img src="tiktok/tiktok07.jpeg">',
-  '<img src="tiktok/tiktok08.jpeg">',
-  '<img src="tiktok/tiktok09.jpeg">',
-  '<img src="tiktok/tiktok10.jpeg">',
-  '<img src="tiktok/tiktok11.jpeg">',
-  '<img src="tiktok/tiktok12.jpeg">',
-  '<img src="tiktok/tiktok13.jpeg">'
+  { img: "tiktok/tiktok01.jpeg", name: "Sigma TikTok" },
+  { img: "tiktok/tiktok02.jpeg", name: "Alpha TikTok" },
+  { img: "tiktok/tiktok03.jpeg", name: "Beta TikTok" },
+  { img: "tiktok/tiktok04.jpeg", name: "Gamma TikTok" },
+  { img: "tiktok/tiktok05.jpeg", name: "Delta TikTok" },
+  { img: "tiktok/tiktok06.jpeg", name: "Epsilon TikTok" },
+  { img: "tiktok/tiktok07.jpeg", name: "Zeta TikTok" },
+  { img: "tiktok/tiktok08.jpeg", name: "Eta TikTok" },
+  { img: "tiktok/tiktok09.jpeg", name: "Theta TikTok" },
+  { img: "tiktok/tiktok10.jpeg", name: "Iota TikTok" },
+  { img: "tiktok/tiktok11.jpeg", name: "Kappa TikTok" },
+  { img: "tiktok/tiktok12.jpeg", name: "Lambda TikTok" },
+  { img: "tiktok/tiktok13.jpeg", name: "Mu TikTok" }
 ];
 
 var lstMember = [], parent = [], equal = [], rec = [];
@@ -134,16 +140,19 @@ function showImage() {
         "battle #" + numQuestion++ + "<br>" +
         Math.floor(finishSize * 100 / totalSize) + "% sorted.";
 
+    let left = lstMember[cmp1][head1];
+    let right = lstMember[cmp2][head2];
+
     document.getElementById("leftField").innerHTML =
-        namMember[lstMember[cmp1][head1]];
+        `<img src="${namMember[left].img}"><span class="nameText">${namMember[left].name}</span>`;
     document.getElementById("rightField").innerHTML =
-        namMember[lstMember[cmp2][head2]];
+        `<img src="${namMember[right].img}"><span class="nameText">${namMember[right].name}</span>`;
 }
 
 function showResult() {
     let str = "<h3>Results</h3>";
     lstMember[0].forEach((i, idx) => {
-        str += `<p>${idx + 1}. ${namMember[i]}</p>`;
+        str += `<p>${idx + 1}. <img src="${namMember[i].img}" style="max-width:50px; vertical-align:middle;"> ${namMember[i].name}</p>`;
     });
     document.getElementById("resultField").innerHTML = str;
 }
@@ -175,4 +184,3 @@ window.onload = () => {
 <div id="resultField" style="text-align:center;"></div>
 </body>
 </html>
-
