@@ -128,6 +128,10 @@ function sortList(flag) {
     if (cmp1 < 0) {
         document.getElementById("battleNumber").innerHTML =
             "Finished! 100% sorted.";
+
+        document.getElementById("statusText").innerText =
+            "Thanks for playing the game!";
+
         showResult();
         finishFlag = true;
     } else showImage();
@@ -139,6 +143,9 @@ function push(cmp, head) {
 }
 
 function showImage() {
+    // Show status text during sorting
+    document.getElementById("statusText").innerText = "Keep going!";
+
     document.getElementById("battleNumber").innerHTML =
         "battle #" + numQuestion++ + "<br>" +
         Math.floor(finishSize * 100 / totalSize) + "% sorted.";
@@ -172,6 +179,11 @@ window.onload = () => {
 
 <body>
 <center><h2>YEONBIN TIKTOK SORTER</h2></center>
+
+<!-- Status Text -->
+<div id="statusText" style="text-align:center; margin:10px 0;">
+    Keep going!
+</div>
 
 <table id="mainTable">
 <tr>
