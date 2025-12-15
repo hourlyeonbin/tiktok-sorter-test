@@ -42,7 +42,7 @@
 
 <script>
 var namMember = [
-  { img: "tiktok/tiktok01.jpeg", name: "Sigma TikTok" },
+  { img: "tiktok/tiktok01.jpeg", name: "Sigma TikTok", url: "https://vt.tiktok.com/ZSPPxwwJ6/" },
   { img: "tiktok/tiktok02.jpeg", name: "Alpha TikTok" },
   { img: "tiktok/tiktok03.jpeg", name: "Beta TikTok" },
   { img: "tiktok/tiktok04.jpeg", name: "Gamma TikTok" },
@@ -155,11 +155,15 @@ function showImage() {
 
     document.getElementById("leftField").innerHTML =
         `<img src="${namMember[left].img}">
-         <span class="choiceLabel">${namMember[left].name}</span>`;
+         <a href="${namMember[left].url}" target="_blank" class="choiceLabel">
+             ${namMember[left].name}
+         </a>`;
 
     document.getElementById("rightField").innerHTML =
         `<img src="${namMember[right].img}">
-         <span class="choiceLabel">${namMember[right].name}</span>`;
+         <a href="${namMember[right].url}" target="_blank" class="choiceLabel">
+             ${namMember[right].name}
+         </a>`;
 }
 
 function showResult() {
@@ -202,4 +206,5 @@ window.onload = () => {
 <div id="resultField" style="text-align:center;"></div>
 </body>
 </html>
+
 
