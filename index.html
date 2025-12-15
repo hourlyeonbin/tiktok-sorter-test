@@ -39,17 +39,17 @@
     display: block;
 }
 
-/* Mobile friendly adjustments */
-@media (max-width: 500px) {
+@media (max-width: 600px) {
     #mainTable {
-        width: 90%;           /* Make the table almost full width */
-        font-size: 16px;      /* Slightly smaller text */
-        border-spacing: 5px 3px;
+        width: 95%;            /* almost full width */
+        font-size: 18px;       /* bigger text */
+        border-spacing: 10px 5px;
     }
 
     #leftField, #rightField {
-        width: 120px;          /* smaller images for mobile */
-        height: 120px;
+        width: 40vw;           /* 40% of viewport width */
+        height: 40vw;          /* keep square */
+        margin: 5px auto;
     }
 
     #leftField img, #rightField img {
@@ -58,21 +58,24 @@
     }
 
     .middleField {
-        width: 80px;
+        width: 90%;
+        max-width: 200px;
         height: 50px;
-        font-size: 14px;
+        font-size: 16px;
+        margin: 5px auto;
     }
 
     .choiceLabel {
-        font-size: 12px;       /* smaller text under images */
+        font-size: 16px;       /* bigger label text */
     }
 
     #battleNumber {
-        font-size: 14px;
+        font-size: 16px;
     }
 
     #statusText {
-        font-size: 14px;
+        font-size: 16px;
+        margin-top: 10px;
     }
 }
 </style>
@@ -243,6 +246,7 @@ window.onload = () => {
 <div id="resultField" style="text-align:center;"></div>
 </body>
 </html>
+
 
 
 
