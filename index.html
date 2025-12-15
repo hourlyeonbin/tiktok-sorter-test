@@ -30,10 +30,12 @@
     border: 1px solid #000;
     cursor: pointer;
 }
-.nameText {
-    margin-top: 5px;
+
+/* TEXT UNDER IMAGE */
+.choiceLabel {
+    margin-top: 4px;
     font-weight: normal;
-    font-size: 14px;
+    font-size: 13px;
     display: block;
 }
 </style>
@@ -145,9 +147,12 @@ function showImage() {
     let right = lstMember[cmp2][head2];
 
     document.getElementById("leftField").innerHTML =
-        `<img src="${namMember[left].img}"><span class="nameText">${namMember[left].name}</span>`;
+        `<img src="${namMember[left].img}">
+         <span class="choiceLabel">${namMember[left].name}</span>`;
+
     document.getElementById("rightField").innerHTML =
-        `<img src="${namMember[right].img}"><span class="nameText">${namMember[right].name}</span>`;
+        `<img src="${namMember[right].img}">
+         <span class="choiceLabel">${namMember[right].name}</span>`;
 }
 
 function showResult() {
@@ -185,4 +190,3 @@ window.onload = () => {
 <div id="resultField" style="text-align:center;"></div>
 </body>
 </html>
-
