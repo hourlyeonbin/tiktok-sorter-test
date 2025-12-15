@@ -184,7 +184,8 @@ function push(cmp, head) {
 
 function showImage() {
     // Show status text during sorting
-    document.getElementById("statusText").innerText = "Reminder: The choices are hyperlinked! Clicking the name will lead you to the tiktok.";
+    document.getElementById("statusText").innerText = 
+        "Reminder: The choices are hyperlinked! Clicking the name will lead you to the TikTok.";
 
     document.getElementById("battleNumber").innerHTML =
         "battle #" + numQuestion++ + "<br>" +
@@ -195,16 +196,16 @@ function showImage() {
 
     document.getElementById("leftField").innerHTML =
         `<img src="${namMember[left].img}">
-         <a href="${namMember[left].url}" target="_blank" class="choiceLabel">
+         <a href="${namMember[left].url}" target="_blank" class="choiceLabel" onclick="event.stopPropagation()">
              ${namMember[left].name}
          </a>`;
 
     document.getElementById("rightField").innerHTML =
         `<img src="${namMember[right].img}">
-         <a href="${namMember[right].url}" target="_blank" class="choiceLabel">
+         <a href="${namMember[right].url}" target="_blank" class="choiceLabel" onclick="event.stopPropagation()">
              ${namMember[right].name}
          </a>`;
-}
+    }
 
 function showResult() {
     let str = "<h3>Results</h3>";
@@ -246,6 +247,7 @@ window.onload = () => {
 <div id="resultField" style="text-align:center;"></div>
 </body>
 </html>
+
 
 
 
