@@ -38,6 +38,43 @@
     font-size: 13px;
     display: block;
 }
+
+/* Mobile friendly adjustments */
+@media (max-width: 500px) {
+    #mainTable {
+        width: 90%;           /* Make the table almost full width */
+        font-size: 16px;      /* Slightly smaller text */
+        border-spacing: 5px 3px;
+    }
+
+    #leftField, #rightField {
+        width: 120px;          /* smaller images for mobile */
+        height: 120px;
+    }
+
+    #leftField img, #rightField img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .middleField {
+        width: 80px;
+        height: 50px;
+        font-size: 14px;
+    }
+
+    .choiceLabel {
+        font-size: 12px;       /* smaller text under images */
+    }
+
+    #battleNumber {
+        font-size: 14px;
+    }
+
+    #statusText {
+        font-size: 14px;
+    }
+}
 </style>
 
 <script>
@@ -206,6 +243,7 @@ window.onload = () => {
 <div id="resultField" style="text-align:center;"></div>
 </body>
 </html>
+
 
 
 
