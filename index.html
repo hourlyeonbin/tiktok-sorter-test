@@ -78,16 +78,17 @@
 
 }
 
+/* ===== RESULTS STYLING (FIXED ALIGNMENT) ===== */
 .resultRow {
-    display: flex;
+    display: grid;
+    grid-template-columns: 40px 60px 1fr;
     align-items: center;
-    justify-content: center;
     gap: 10px;
-    margin: 6px 0;
+    max-width: 400px;
+    margin: 6px auto;
 }
 
 .resultRank {
-    width: 30px;          /* fixed width = aligned numbers */
     text-align: right;
     font-weight: bold;
 }
@@ -99,6 +100,7 @@
 
 .resultName {
     text-align: left;
+    word-break: break-word;
 }
 
 @media (max-width: 600px) {
@@ -444,6 +446,7 @@ window.onload = () => {
 </body>
 
 </html>
+
 
 
 
