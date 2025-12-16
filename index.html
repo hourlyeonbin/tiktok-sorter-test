@@ -72,20 +72,21 @@ body {
 
 @media (max-width: 600px) {
 
-    /* FULL WIDTH TABLE */
     #mainTable {
         width: 100%;
         border-spacing: 8px;
+        position: relative;
     }
 
-    /* TURN SORTER ROW INTO GRID */
+    /* Make the comparison row a grid */
     #mainTable tr:nth-child(2) {
         display: grid;
-        grid-template-columns: 1fr 0.7fr 1fr;
+        grid-template-columns: 1fr 0.8fr 1fr;
         align-items: center;
+        position: relative;
     }
 
-    /* IMAGE CONTAINERS */
+    /* LEFT & RIGHT */
     #leftField,
     #rightField {
         width: 100%;
@@ -93,24 +94,33 @@ body {
         height: auto;
     }
 
-    /* IMAGES */
     #leftField img,
     #rightField img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        display: block;
     }
 
-    /* MIDDLE BUTTONS (SHORTER!) */
+    /* STACK BOTH BUTTONS IN THE MIDDLE */
     .middleField {
         width: 100%;
-        height: 40px;
+        height: 42px;
         font-size: 14px;
-        margin: 6px auto;
+        margin: 6px 0;
     }
 
-    /* TEXT UNDER IMAGE */
+    /* Force BOTH middle buttons into the center column */
+    #mainTable tr:nth-child(2) .middleField,
+    #mainTable tr:nth-child(3) .middleField {
+        grid-column: 2;
+        justify-self: stretch;
+    }
+
+    /* Hide table row behavior */
+    #mainTable tr:nth-child(3) {
+        display: contents;
+    }
+
     .choiceLabel {
         font-size: 14px;
     }
@@ -284,6 +294,7 @@ window.onload = () => {
 <div id="resultField" style="text-align:center;"></div>
 </body>
 </html>
+
 
 
 
