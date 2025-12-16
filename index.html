@@ -1,308 +1,497 @@
 <!DOCTYPE html>
+
 <html>
+
 <head>
+
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Yeonbin Sorter</title>
 
+
+
 <style>
-body {
-    margin: 0;
-    padding: 10px;
-    font-family: 'Times New Roman', serif;
-}
 
 #mainTable {
-    width: 100%;
-    max-width: 100%;
-    margin: auto;
-    border-spacing: 12px;
+
+    font-size: 19px;
+
+    font-family: 'Times New Roman', serif;
+
     text-align: center;
-    font-size: 18px;
-}
 
-#battleNumber {
-    font-size: 16px;
-}
+    width: 410px;
 
-#leftField,
-#rightField {
-    width: 45vw;              /* BIG on mobile */
-    height: 45vw;
-    max-width: 220px;
-    max-height: 220px;
-    border: 1px solid #000;
-    cursor: pointer;
-    vertical-align: top;
-}
-
-#leftField img,
-#rightField img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* Text under image */
-.choiceLabel {
-    display: block;
-    margin-top: 6px;
-    font-size: 16px;
-    font-weight: normal;
-    text-decoration: underline;
-    color: #000;
-}
-
-/* Middle buttons */
-.middleField {
-    width: 90%;
-    max-width: 220px;
-    height: 50px;
-    font-size: 16px;
-    border: 1px solid #000;
-    cursor: pointer;
     margin: auto;
+
+    border-spacing: 10px 5px;
+
 }
 
-/* Status text */
-#statusText {
-    font-size: 15px;
-    margin: 12px 0;
+#leftField, #rightField {
+
+    width: 150px;
+
+    height: 150px;
+
+    border: 1px solid #000;
+
+    cursor: pointer;
+
+    vertical-align: top;
+
 }
+
+#leftField img, #rightField img {
+
+    max-width: 100%;
+
+    max-height: 100%;
+
+}
+
+.middleField {
+
+    width: 120px;
+
+    height: 70px;
+
+    border: 1px solid #000;
+
+    cursor: pointer;
+
+}
+
+
+
+/* TEXT UNDER IMAGE */
+
+.choiceLabel {
+
+    margin-top: 4px;
+
+    font-weight: normal;
+
+    font-size: 13px;
+
+    display: block;
+
+}
+
+
 
 @media (max-width: 600px) {
 
     #mainTable {
-        width: 100%;
-        border-spacing: 8px;
-        position: relative;
+
+        width: 95%;            /* almost full width */
+
+        font-size: 18px;       /* bigger text */
+
+        border-spacing: 10px 5px;
+
     }
 
-    /* Make the comparison row a grid */
-    #mainTable tr:nth-child(2) {
-        display: grid;
-        grid-template-columns: 1fr 0.8fr 1fr;
-        align-items: center;
-        position: relative;
+
+
+    #leftField, #rightField {
+
+        width: 40vw;           /* 40% of viewport width */
+
+        height: 40vw;          /* keep square */
+
+        margin: 5px auto;
+
     }
 
-    /* LEFT & RIGHT */
-    #leftField,
-    #rightField {
-        width: 100%;
-        aspect-ratio: 1 / 1;
-        height: auto;
+
+
+    #leftField img, #rightField img {
+
+        max-width: 100%;
+
+        max-height: 100%;
+
     }
 
-    #leftField img,
-    #rightField img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
 
-    /* STACK BOTH BUTTONS IN THE MIDDLE */
+
     .middleField {
-        width: 100%;
-        height: 42px;
-        font-size: 14px;
-        margin: 6px 0;
+
+        width: 90%;
+
+        max-width: 200px;
+
+        height: 50px;
+
+        font-size: 16px;
+
+        margin: 5px auto;
+
     }
 
-    /* Force BOTH middle buttons into the center column */
-    #mainTable tr:nth-child(2) .middleField,
-    #mainTable tr:nth-child(3) .middleField {
-        grid-column: 2;
-        justify-self: stretch;
-    }
 
-    /* Hide table row behavior */
-    #mainTable tr:nth-child(3) {
-        display: contents;
-    }
 
     .choiceLabel {
-        font-size: 14px;
+
+        font-size: 16px;       /* bigger label text */
+
     }
+
+
+
+    #battleNumber {
+
+        font-size: 16px;
+
+    }
+
+
+
+    #statusText {
+
+        font-size: 16px;
+
+        margin-top: 10px;
+
+    }
+
 }
+
 </style>
 
+
+
 <script>
+
 var namMember = [
+
   { img: "tiktok/tiktok01.jpeg", name: "Sigma Boys", url: "https://vt.tiktok.com/ZSPPxwwJ6/" },
+
   { img: "tiktok/tiktok02.jpeg", name: "The Killa", url: "https://vt.tiktok.com/ZSPPCm8sg/" },
+
   { img: "tiktok/tiktok03.jpeg", name: "Me Jalo", url: "https://vt.tiktok.com/ZSPPCkXMf/" },
+
   { img: "tiktok/tiktok04.jpeg", name: "No.1 Party Anthem", url: "https://vt.tiktok.com/ZSPPCmeJc/" },
+
   { img: "tiktok/tiktok05.jpeg", name: "Love Language (Easy. ver)", url: "https://vt.tiktok.com/ZSPPC5Qy8/" },
+
   { img: "tiktok/tiktok06.jpeg", name: "When the Day Comes", url: "https://vt.tiktok.com/ZSPPCnEXk/" },
+
   { img: "tiktok/tiktok07.jpeg", name: "Love Language", url: "https://x.com/i/status/1923725855286755394" },
+
   { img: "tiktok/tiktok08.jpeg", name: "🦊🐰 town", url: "https://vt.tiktok.com/ZSPPCTDYV/" },
+
   { img: "tiktok/tiktok09.jpeg", name: "Upside Down Kiss", url: "https://vt.tiktok.com/ZSPPCG2cW/" },
+
   { img: "tiktok/tiktok10.jpeg", name: "Hajima Trend", url: "https://vt.tiktok.com/ZSPPCbXo2/" },
+
   { img: "tiktok/tiktok11.jpeg", name: "Ocean Eyes", url: "https://vt.tiktok.com/ZSPPXJU1g/" },
+
   { img: "tiktok/tiktok12.jpeg", name: "Where do you go?", url: "https://vt.tiktok.com/ZSPPXJows/" },
+
   { img: "tiktok/tiktok13.jpeg", name: "Zootopia 2 Challenge", url: "https://vt.tiktok.com/ZSPPCbqeq/" }
+
 ];
 
+
+
 var lstMember = [], parent = [], equal = [], rec = [];
+
 var cmp1, cmp2, head1, head2;
+
 var nrec, numQuestion, totalSize, finishSize, finishFlag;
 
+
+
 function initList() {
+
     lstMember = [];
+
     parent = [];
+
     equal = [];
+
     rec = [];
 
+
+
     lstMember[0] = [];
+
     for (let i = 0; i < namMember.length; i++) lstMember[0][i] = i;
+
     parent[0] = -1;
 
+
+
     totalSize = 0;
+
     let n = 1;
 
+
+
     for (let i = 0; i < lstMember.length; i++) {
+
         if (lstMember[i].length >= 2) {
+
             let mid = Math.ceil(lstMember[i].length / 2);
+
             lstMember[n] = lstMember[i].slice(0, mid);
+
             totalSize += lstMember[n].length;
+
             parent[n++] = i;
 
+
+
             lstMember[n] = lstMember[i].slice(mid);
+
             totalSize += lstMember[n].length;
+
             parent[n++] = i;
+
         }
+
     }
+
+
 
     for (let i = 0; i < namMember.length; i++) equal[i] = -1;
 
+
+
     cmp1 = lstMember.length - 2;
+
     cmp2 = lstMember.length - 1;
+
     head1 = head2 = 0;
+
     nrec = 0;
+
     finishSize = 0;
+
     numQuestion = 1;
+
     finishFlag = false;
+
 }
+
+
 
 function sortList(flag) {
+
     if (flag < 0) push(cmp1, head1++);
+
     else if (flag > 0) push(cmp2, head2++);
+
     else {
+
         push(cmp1, head1++);
+
         equal[rec[nrec - 1]] = lstMember[cmp2][head2];
+
         push(cmp2, head2++);
+
     }
+
+
 
     while (head1 < lstMember[cmp1].length && head2 === lstMember[cmp2].length)
+
         push(cmp1, head1++);
+
     while (head2 < lstMember[cmp2].length && head1 === lstMember[cmp1].length)
+
         push(cmp2, head2++);
 
+
+
     if (head1 === lstMember[cmp1].length && head2 === lstMember[cmp2].length) {
+
         for (let i = 0; i < rec.length; i++)
+
             lstMember[parent[cmp1]][i] = rec[i];
 
+
+
         lstMember.pop();
+
         lstMember.pop();
+
         cmp1 -= 2;
+
         cmp2 -= 2;
+
         head1 = head2 = 0;
+
         rec = [];
+
         nrec = 0;
+
     }
+
+
 
     if (cmp1 < 0) {
+
         document.getElementById("battleNumber").innerHTML =
+
             "Finished! 100% sorted.";
 
+
+
         document.getElementById("statusText").innerText =
+
             "Thanks for playing the game!";
 
+
+
         showResult();
+
         finishFlag = true;
+
     } else showImage();
+
 }
+
+
 
 function push(cmp, head) {
+
     rec[nrec++] = lstMember[cmp][head];
+
     finishSize++;
+
 }
+
+
 
 function showImage() {
+
     // Show status text during sorting
+
     document.getElementById("statusText").innerText = 
+
         "Reminder: The choices are hyperlinked! Clicking the name will lead you to the TikTok.";
 
+
+
     document.getElementById("battleNumber").innerHTML =
+
         "battle #" + numQuestion++ + "<br>" +
+
         Math.floor(finishSize * 100 / totalSize) + "% sorted.";
 
+
+
     let left = lstMember[cmp1][head1];
+
     let right = lstMember[cmp2][head2];
 
+
+
     document.getElementById("leftField").innerHTML =
+
         `<img src="${namMember[left].img}">
+
          <a href="${namMember[left].url}" target="_blank" class="choiceLabel" onclick="event.stopPropagation()">
+
              ${namMember[left].name}
+
          </a>`;
+
+
 
     document.getElementById("rightField").innerHTML =
+
         `<img src="${namMember[right].img}">
+
          <a href="${namMember[right].url}" target="_blank" class="choiceLabel" onclick="event.stopPropagation()">
+
              ${namMember[right].name}
+
          </a>`;
+
     }
 
+
+
 function showResult() {
+
     let str = "<h3>Results</h3>";
+
     lstMember[0].forEach((i, idx) => {
+
         str += `<p>${idx + 1}. <img src="${namMember[i].img}" style="max-width:50px; vertical-align:middle;"> ${namMember[i].name}</p>`;
+
     });
+
     document.getElementById("resultField").innerHTML = str;
+
 }
 
+
+
 window.onload = () => {
+
     initList();
+
     showImage();
+
 };
+
 </script>
+
 </head>
 
+
+
 <body>
+
 <center><h2>YEONBIN TIKTOK SORTER</h2></center>
 
+
+
 <table id="mainTable">
+
 <tr>
+
 <td id="battleNumber" colspan="3"></td>
+
 </tr>
+
 <tr>
+
 <td id="leftField" onclick="!finishFlag && sortList(-1)" rowspan="2"></td>
+
 <td class="middleField" onclick="!finishFlag && sortList(0)">I like both</td>
+
 <td id="rightField" onclick="!finishFlag && sortList(1)" rowspan="2"></td>
+
 </tr>
+
 <tr>
+
 <td class="middleField" onclick="!finishFlag && sortList(0)">no opinion</td>
+
 </tr>
+
 </table>
 
+
+
 <!-- Status Text -->
+
 <div id="statusText" style="text-align:center; margin:10px 0;">
+
     Reminder: The choices are hyperlinked! Clicking the name will lead you to the tiktok.
+
 </div>
 
+
+
 <div id="resultField" style="text-align:center;"></div>
+
 </body>
+
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
