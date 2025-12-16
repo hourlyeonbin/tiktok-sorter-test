@@ -70,26 +70,48 @@ body {
     margin: 12px 0;
 }
 
-/* ===== DESKTOP ENHANCEMENT ===== */
-@media (min-width: 768px) {
+@media (max-width: 600px) {
+
+    /* FULL WIDTH TABLE */
     #mainTable {
-        max-width: 420px;
-        font-size: 19px;
+        width: 100%;
+        border-spacing: 8px;
     }
 
+    /* TURN SORTER ROW INTO GRID */
+    #mainTable tr:nth-child(2) {
+        display: grid;
+        grid-template-columns: 1fr 0.7fr 1fr;
+        align-items: center;
+    }
+
+    /* IMAGE CONTAINERS */
     #leftField,
     #rightField {
-        width: 150px;
-        height: 150px;
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        height: auto;
     }
 
-    .choiceLabel {
-        font-size: 13px;
+    /* IMAGES */
+    #leftField img,
+    #rightField img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
     }
 
+    /* MIDDLE BUTTONS (SHORTER!) */
     .middleField {
-        width: 120px;
-        height: 70px;
+        width: 100%;
+        height: 40px;
+        font-size: 14px;
+        margin: 6px auto;
+    }
+
+    /* TEXT UNDER IMAGE */
+    .choiceLabel {
         font-size: 14px;
     }
 }
@@ -262,6 +284,7 @@ window.onload = () => {
 <div id="resultField" style="text-align:center;"></div>
 </body>
 </html>
+
 
 
 
