@@ -6,77 +6,91 @@
 <title>Yeonbin Sorter</title>
 
 <style>
-#mainTable {
-    font-size: 19px;
+body {
+    margin: 0;
+    padding: 10px;
     font-family: 'Times New Roman', serif;
-    text-align: center;
-    width: 410px;
-    margin: auto;
-    border-spacing: 10px 5px;
 }
-#leftField, #rightField {
-    width: 150px;
-    height: 150px;
+
+#mainTable {
+    width: 100%;
+    max-width: 100%;
+    margin: auto;
+    border-spacing: 12px;
+    text-align: center;
+    font-size: 18px;
+}
+
+#battleNumber {
+    font-size: 16px;
+}
+
+#leftField,
+#rightField {
+    width: 45vw;              /* BIG on mobile */
+    height: 45vw;
+    max-width: 220px;
+    max-height: 220px;
     border: 1px solid #000;
     cursor: pointer;
     vertical-align: top;
 }
-#leftField img, #rightField img {
-    max-width: 100%;
-    max-height: 100%;
+
+#leftField img,
+#rightField img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
+
+/* Text under image */
+.choiceLabel {
+    display: block;
+    margin-top: 6px;
+    font-size: 16px;
+    font-weight: normal;
+    text-decoration: underline;
+    color: #000;
+}
+
+/* Middle buttons */
 .middleField {
-    width: 120px;
-    height: 70px;
+    width: 90%;
+    max-width: 220px;
+    height: 50px;
+    font-size: 16px;
     border: 1px solid #000;
     cursor: pointer;
+    margin: auto;
 }
 
-/* TEXT UNDER IMAGE */
-.choiceLabel {
-    margin-top: 4px;
-    font-weight: normal;
-    font-size: 13px;
-    display: block;
+/* Status text */
+#statusText {
+    font-size: 15px;
+    margin: 12px 0;
 }
 
-@media (max-width: 600px) {
+/* ===== DESKTOP ENHANCEMENT ===== */
+@media (min-width: 768px) {
     #mainTable {
-        width: 95%;            /* almost full width */
-        font-size: 18px;       /* bigger text */
-        border-spacing: 10px 5px;
+        max-width: 420px;
+        font-size: 19px;
     }
 
-    #leftField, #rightField {
-        width: 40vw;           /* 40% of viewport width */
-        height: 40vw;          /* keep square */
-        margin: 5px auto;
-    }
-
-    #leftField img, #rightField img {
-        max-width: 100%;
-        max-height: 100%;
-    }
-
-    .middleField {
-        width: 90%;
-        max-width: 200px;
-        height: 50px;
-        font-size: 16px;
-        margin: 5px auto;
+    #leftField,
+    #rightField {
+        width: 150px;
+        height: 150px;
     }
 
     .choiceLabel {
-        font-size: 16px;       /* bigger label text */
+        font-size: 13px;
     }
 
-    #battleNumber {
-        font-size: 16px;
-    }
-
-    #statusText {
-        font-size: 16px;
-        margin-top: 10px;
+    .middleField {
+        width: 120px;
+        height: 70px;
+        font-size: 14px;
     }
 }
 </style>
@@ -248,6 +262,7 @@ window.onload = () => {
 <div id="resultField" style="text-align:center;"></div>
 </body>
 </html>
+
 
 
 
