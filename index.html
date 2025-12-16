@@ -78,6 +78,29 @@
 
 }
 
+.resultRow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 6px 0;
+}
+
+.resultRank {
+    width: 30px;          /* fixed width = aligned numbers */
+    text-align: right;
+    font-weight: bold;
+}
+
+.resultRow img {
+    width: 50px;
+    height: auto;
+}
+
+.resultName {
+    text-align: left;
+}
+
 @media (max-width: 600px) {
     #mainTable {
         transform: scale(1.00);
@@ -344,20 +367,19 @@ function showImage() {
 
 
 function showResult() {
-
     let str = "<h3>Results</h3>";
 
     lstMember[0].forEach((i, idx) => {
-
-        str += `<p>${idx + 1}. <img src="${namMember[i].img}" style="max-width:50px; vertical-align:middle;"> ${namMember[i].name}</p>`;
-
+        str += `
+        <div class="resultRow">
+            <span class="resultRank">${idx + 1}.</span>
+            <img src="${namMember[i].img}" alt="">
+            <span class="resultName">${namMember[i].name}</span>
+        </div>`;
     });
 
     document.getElementById("resultField").innerHTML = str;
-
 }
-
-
 
 window.onload = () => {
 
@@ -422,6 +444,7 @@ window.onload = () => {
 </body>
 
 </html>
+
 
 
 
