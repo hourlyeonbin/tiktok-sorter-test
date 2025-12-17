@@ -116,6 +116,14 @@
     max-width: 320px;
     line-height: 1.4;
 }
+
+.instructions {
+    margin-bottom: 0; /* removes extra gap under the title */
+}
+
+.instructions.hidden {
+    display: none;
+}
     
 </style>
 
@@ -341,7 +349,7 @@ function showImage() {
 
         Math.floor(finishSize * 100 / totalSize) + "% sorted.";
 
-    if (numQuestion > 3) {
+    if (numQuestion >= 5) {
     document.getElementById("instructions").style.display = "none";
     }
 
@@ -413,7 +421,7 @@ window.onload = () => {
 <center>
     <h2>YEONBIN TIKTOK SORTER</h2>
     
-<div id="instructions">
+<div id="instructions" class="instructions">
     Tap the image of the tiktok you like more!<br>
     You can also choose “I like both” or “No opinion”.
 </div>
@@ -464,6 +472,7 @@ window.onload = () => {
 </body>
 
 </html>
+
 
 
 
