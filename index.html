@@ -124,6 +124,13 @@
 .instructions.hidden {
     display: none;
 }
+
+.subtitle {
+    font-size: 14px;       /* smaller than main title */
+    margin-top: 4px;       /* small gap between title and subtitle */
+    margin-bottom: 8px;    /* optional: small gap before instructions */
+    font-weight: normal;   /* lighter than title */
+}
     
 </style>
 
@@ -420,10 +427,11 @@ window.onload = () => {
 
 <center>
     <h2>YEONBIN TIKTOK SORTER</h2>
+    <p class="subtitle">This or that TikTok? 👀</p>
     
-<div id="instructions" class="instructions">
-    <p> Tap the image of the tiktok you like more!</p>
-</div>
+    <div id="instructions" class="instructions">
+        <p>Tap the image of the TikTok you like more!</p>
+    </div>
 </center>
 
 
@@ -471,6 +479,7 @@ window.onload = () => {
 </body>
 
 </html>
+
 
 
 
