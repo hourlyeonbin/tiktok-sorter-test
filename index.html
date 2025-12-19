@@ -131,6 +131,13 @@
     margin-bottom: 8px;    /* optional: small gap before instructions */
     font-weight: normal;   /* lighter than title */
 }
+
+#resultControls button {
+    margin: 4px;
+    padding: 6px 10px;
+    font-size: 14px;
+    cursor: pointer;
+}
     
 </style>
 
@@ -395,18 +402,8 @@ function showImage() {
 
 
 function showResult() {
-    let str = "<h3>Results</h3>";
-
-    lstMember[0].forEach((i, idx) => {
-        str += `
-        <div class="resultRow">
-            <span class="resultRank">${idx + 1}.</span>
-            <img src="${namMember[i].img}" alt="">
-            <span class="resultName">${namMember[i].name}</span>
-        </div>`;
-    });
-
-    document.getElementById("resultField").innerHTML = str;
+    document.getElementById("resultControls").style.display = "block";
+    showFullList();
 }
 
 window.onload = () => {
@@ -474,11 +471,25 @@ window.onload = () => {
 
 
 
+<div id="resultControls" style="text-align:center; margin-top: 20px; display:none;">
+    <button onclick="showTop3()">Top 3</button>
+    <button onclick="showFullList()">Full List</button>
+    <button onclick="showTable()">Table</button>
+</div>
+
+<!-- Result format selector -->
+<div id="resultControls" style="text-align:center; display:none; margin-top:15px;">
+    <button onclick="showTop3()">Top 3</button>
+    <button onclick="showFullList()">Full List</button>
+    <button onclick="showTable()">Table</button>
+</div>
+
 <div id="resultField" style="text-align:center;"></div>
 
 </body>
 
 </html>
+
 
 
 
