@@ -407,7 +407,11 @@ function showResult() {
 }
 
 function showTop3() {
-    let top3 = lstMember[0].slice(0, 3);
+    // Use the correct indices to access namMember objects
+    let finalList = lstMember[0]; // fully sorted final list
+    if (!finalList || finalList.length < 3) return; // safety check
+
+    let top3 = finalList.slice(0, 3);
     let str = `<h3>Top 3</h3>
     <div style="display:flex; justify-content:center; align-items:flex-end; gap:10px; margin-top:20px;">`;
 
@@ -415,24 +419,24 @@ function showTop3() {
     str += `
     <div style="text-align:center; background:#ccc; padding:10px; width:100px; border-radius:8px;">
         <div style="font-weight:bold; font-size:18px;">2</div>
-        <img src="${top3[1].img}" style="width:80px; height:auto; margin:5px 0;">
-        <div>${top3[1].name}</div>
+        <img src="${namMember[top3[1]].img}" style="width:80px; height:auto; margin:5px 0;">
+        <div>${namMember[top3[1]].name}</div>
     </div>`;
 
     // 1st place (center)
     str += `
     <div style="text-align:center; background:gold; padding:10px; width:120px; border-radius:8px; transform: translateY(-20px);">
         <div style="font-weight:bold; font-size:20px;">1</div>
-        <img src="${top3[0].img}" style="width:100px; height:auto; margin:5px 0;">
-        <div>${top3[0].name}</div>
+        <img src="${namMember[top3[0]].img}" style="width:100px; height:auto; margin:5px 0;">
+        <div>${namMember[top3[0]].name}</div>
     </div>`;
 
     // 3rd place (right)
     str += `
     <div style="text-align:center; background:#bbb; padding:10px; width:100px; border-radius:8px;">
         <div style="font-weight:bold; font-size:18px;">3</div>
-        <img src="${top3[2].img}" style="width:80px; height:auto; margin:5px 0;">
-        <div>${top3[2].name}</div>
+        <img src="${namMember[top3[2]].img}" style="width:80px; height:auto; margin:5px 0;">
+        <div>${namMember[top3[2]].name}</div>
     </div>`;
 
     str += `</div>`; // end flex container
@@ -554,6 +558,7 @@ window.onload = () => {
 </body>
 
 </html>
+
 
 
 
