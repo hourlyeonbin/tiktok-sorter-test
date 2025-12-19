@@ -403,7 +403,60 @@ function showImage() {
 
 function showResult() {
     document.getElementById("resultControls").style.display = "block";
-    showFullList();
+    showTop3(); // show Top 3 first
+}
+
+function showTop3() {
+    let str = "<h3>Top 3</h3>";
+
+    lstMember[0].slice(0, 3).forEach((i, idx) => {
+        str += `
+        <div class="resultRow">
+            <span class="resultRank">${idx + 1}.</span>
+            <img src="${namMember[i].img}" alt="">
+            <span class="resultName">${namMember[i].name}</span>
+        </div>`;
+    });
+
+    document.getElementById("resultField").innerHTML = str;
+}
+
+function showFullList() {
+    let str = "<h3>Full Ranking</h3>";
+
+    lstMember[0].forEach((i, idx) => {
+        str += `
+        <div class="resultRow">
+            <span class="resultRank">${idx + 1}.</span>
+            <img src="${namMember[i].img}" alt="">
+            <span class="resultName">${namMember[i].name}</span>
+        </div>`;
+    });
+
+    document.getElementById("resultField").innerHTML = str;
+}
+
+function showTable() {
+    let str = `
+    <h3>Table View</h3>
+    <table style="margin:auto; border-collapse:collapse;">
+        <tr>
+            <th style="padding:6px;">Rank</th>
+            <th style="padding:6px;">Preview</th>
+            <th style="padding:6px;">Name</th>
+        </tr>`;
+
+    lstMember[0].forEach((i, idx) => {
+        str += `
+        <tr>
+            <td style="padding:6px; text-align:right;">${idx + 1}</td>
+            <td style="padding:6px;"><img src="${namMember[i].img}" style="width:40px;"></td>
+            <td style="padding:6px; text-align:left;">${namMember[i].name}</td>
+        </tr>`;
+    });
+
+    str += "</table>";
+    document.getElementById("resultField").innerHTML = str;
 }
 
 window.onload = () => {
@@ -477,18 +530,12 @@ window.onload = () => {
     <button onclick="showTable()">Table</button>
 </div>
 
-<!-- Result format selector -->
-<div id="resultControls" style="text-align:center; display:none; margin-top:15px;">
-    <button onclick="showTop3()">Top 3</button>
-    <button onclick="showFullList()">Full List</button>
-    <button onclick="showTable()">Table</button>
-</div>
-
 <div id="resultField" style="text-align:center;"></div>
 
 </body>
 
 </html>
+
 
 
 
