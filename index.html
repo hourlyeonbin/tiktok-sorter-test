@@ -399,8 +399,6 @@ function showImage() {
 
     }
 
-
-
 function showResult() {
     document.getElementById("resultControls").style.display = "block";
     showTop3(); // show Top 3 first
@@ -415,25 +413,25 @@ function showTop3() {
     <div style="display:flex; justify-content:center; align-items:flex-end; gap:12px; margin-top:20px;">`;
 
     // 2nd place (left)
-str += `<div style="text-align:center; background:#ccc; padding:10px; width:100px; border-radius:8px; transform: translateY(-10px);">
-    <div style="font-weight:bold; font-size:18px;">2</div>
-    <img src="${finalList[1].img}" style="width:80px; height:auto; margin:5px 0;">
-    <div>${finalList[1].name}</div>
-</div>`;
+    str += `<div style="text-align:center; background:#ccc; padding:10px; width:100px; border-radius:8px; transform: translateY(-10px); box-shadow:0 4px 8px rgba(0,0,0,0.3);">
+        <div style="font-weight:bold; font-size:18px;">2</div>
+        <img src="${top3[1].img}" style="width:80px; height:auto; margin:5px 0;">
+        <div>${top3[1].name}</div>
+    </div>`;
 
-// 1st place (center) stays the same
-str += `<div style="text-align:center; background:gold; padding:10px; width:120px; border-radius:8px; transform: translateY(-20px);">
-    <div style="font-weight:bold; font-size:20px;">1</div>
-    <img src="${finalList[0].img}" style="width:100px; height:auto; margin:5px 0;">
-    <div>${finalList[0].name}</div>
-</div>`;
+    // 1st place (center)
+    str += `<div style="text-align:center; background:gold; padding:10px; width:120px; border-radius:8px; transform: translateY(-20px); box-shadow:0 6px 12px rgba(0,0,0,0.4);">
+        <div style="font-weight:bold; font-size:20px;">1</div>
+        <img src="${top3[0].img}" style="width:100px; height:auto; margin:5px 0;">
+        <div>${top3[0].name}</div>
+    </div>`;
 
-// 3rd place (right)
-str += `<div style="text-align:center; background:#bbb; padding:10px; width:100px; border-radius:8px; transform: translateY(-5px);">
-    <div style="font-weight:bold; font-size:18px;">3</div>
-    <img src="${finalList[2].img}" style="width:80px; height:auto; margin:5px 0;">
-    <div>${finalList[2].name}</div>
-</div>`;
+    // 3rd place (right)
+    str += `<div style="text-align:center; background:#bbb; padding:10px; width:100px; border-radius:8px; transform: translateY(-5px); box-shadow:0 3px 6px rgba(0,0,0,0.2);">
+        <div style="font-weight:bold; font-size:18px;">3</div>
+        <img src="${top3[2].img}" style="width:80px; height:auto; margin:5px 0;">
+        <div>${top3[2].name}</div>
+    </div>`;
 
     str += `</div>`; // end flex container
 
@@ -530,6 +528,7 @@ window.onload = () => {
 </body>
 
 </html>
+
 
 
 
