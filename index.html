@@ -403,37 +403,44 @@ function showResult() {
     document.getElementById("resultControls").style.display = "block";
     showTop3(); // show Top 3 first
 }
-
+    
 function showTop3() {
-    let finalList = lstMember[0];        // sorted indices
-    let top3Indices = finalList.slice(0,3);
-    let top3 = top3Indices.map(i => namMember[i]); // map to actual objects
+    let top3 = lstMember[0].slice(0, 3);
 
     let str = `<h3>Top 3</h3>
-    <div style="display:flex; justify-content:center; align-items:flex-end; gap:12px; margin-top:20px;">`;
+    <div style="
+        display:flex;
+        justify-content:center;
+        align-items:flex-end;
+        gap:10px;
+        margin-top:20px;
+    ">`;
 
-    // 2nd place (left)
-    str += `<div style="text-align:center; background:#ccc; padding:10px; width:100px; border-radius:8px; transform: translateY(-10px); box-shadow:0 4px 8px rgba(0,0,0,0.3);">
+    // 2nd place
+    str += `
+    <div style="text-align:center; background:#ccc; padding:10px; width:100px; border-radius:8px;">
         <div style="font-weight:bold; font-size:18px;">2</div>
-        <img src="${top3[1].img}" style="width:80px; height:auto; margin:5px 0;">
-        <div>${top3[1].name}</div>
+        <img src="${namMember[top3[1]].img}" style="width:80px; margin:5px 0;">
+        <div>${namMember[top3[1]].name}</div>
     </div>`;
 
-    // 1st place (center)
-    str += `<div style="text-align:center; background:gold; padding:10px; width:120px; border-radius:8px; transform: translateY(-20px); box-shadow:0 6px 12px rgba(0,0,0,0.4);">
+    // 1st place
+    str += `
+    <div style="text-align:center; background:gold; padding:10px; width:120px; border-radius:8px; transform: translateY(-20px);">
         <div style="font-weight:bold; font-size:20px;">1</div>
-        <img src="${top3[0].img}" style="width:100px; height:auto; margin:5px 0;">
-        <div>${top3[0].name}</div>
+        <img src="${namMember[top3[0]].img}" style="width:100px; margin:5px 0;">
+        <div>${namMember[top3[0]].name}</div>
     </div>`;
 
-    // 3rd place (right)
-    str += `<div style="text-align:center; background:#bbb; padding:10px; width:100px; border-radius:8px; transform: translateY(-5px); box-shadow:0 3px 6px rgba(0,0,0,0.2);">
+    // 3rd place
+    str += `
+    <div style="text-align:center; background:#bbb; padding:10px; width:100px; border-radius:8px;">
         <div style="font-weight:bold; font-size:18px;">3</div>
-        <img src="${top3[2].img}" style="width:80px; height:auto; margin:5px 0;">
-        <div>${top3[2].name}</div>
+        <img src="${namMember[top3[2]].img}" style="width:80px; margin:5px 0;">
+        <div>${namMember[top3[2]].name}</div>
     </div>`;
 
-    str += `</div>`; // end flex container
+    str += `</div>`;
 
     document.getElementById("resultField").innerHTML = str;
 }
@@ -528,6 +535,7 @@ window.onload = () => {
 </body>
 
 </html>
+
 
 
 
